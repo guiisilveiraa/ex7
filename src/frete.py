@@ -1,10 +1,17 @@
-def calcular_frete(subtotal):
-    """REQ-01: taxa padrão. REQ-02: frete grátis."""
+def calcular_frete(subtotal, regiao=None):
     if subtotal >= 250.00:
-        return 0.00
-    return 15.00
+        frete = 0.00
+    else:
+        frete = 15.00
+
+    if regiao in ("Norte", "Nordeste"):
+        if subtotal > 300.00:
+            return 0.00
+
+        frete += 10.00
+
+    return frete
 
 
-def calcular_total(subtotal):
-    """REQ-01 e REQ-02: subtotal somado ao frete."""
-    return subtotal + calcular_frete(subtotal)
+def calcular_total(subtotal, regiao=None):
+    return subtotal + calcular_frete(subtotal, regiao)
